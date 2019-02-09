@@ -78,6 +78,8 @@
 		{
 			if ($indoorCam)
 			{
+				# THIS ALTERNATE FOLDER STRUCTURE FOR MY INDOOR CAMERA DOESNT DISPLAY CORRECTLY YET
+				
 				$imagePath = $rootDir . $selectedDir . $cameraDir . '/' . $dateDir . '/' . $hourDir . '/jpg/';
 				if (file_exists($imagePath))
 				{
