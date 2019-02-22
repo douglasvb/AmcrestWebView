@@ -1,6 +1,7 @@
 ToDo list:
 
-- Detect latest file type and only do image copy if it is a specific file type
-- Only allow a refresh of the image once a minute.  This is important if we start getting a lot of people looking at the server.
 - Look into waiting a second for an image to load with the wordpress HTML.  Might need to make a plugin or something to do that?  Maybe could do it via PHP with the way the image is returned from the other server?
-- Have script try again to find an image after a minute has passed if it didn't find one.
+- Try to find an image after a minute has passed if it didn't find one.
+- Make a WordPress plugin for this because the way I'm making this work with WordPress is really not great
+- Move configuration stuff into its own file
+- Resize image options so I can serve a smaller resolution image for those that want it
