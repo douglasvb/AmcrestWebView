@@ -6,4 +6,5 @@ ToDo list:
 - Move configuration stuff into its own file
 - Resize image options so I can serve a smaller resolution image for those that want it
 - Verify that image is the correct size and if not, wait a bit and try again -- this is for when the script catches the camera uploading a new file before it's done.  Maybe another approach would be to only serve an image that's been on the server longer than X seconds?
-
+- Allow multiple AmCrest cameras at the same time
+- Allow multiple brands of IP Camera at the same time
