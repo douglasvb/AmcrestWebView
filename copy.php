@@ -7,25 +7,7 @@
 
 #This code finds the most recent uploaded file and copies it to a single location for you to point to.
 
-#CONFIGURATION INFORMATION
-# SET THIS TO THE DIRECTORY THAT CONTAIN YOUR CAMERAS ROOT FTP FOLDERS
-$rootDir = '/your-folder-structure-here/';
-
-
-# PUT THE EXTENSIONS OF THE FILES YOU CARE ABOUT HERE
-$fileDisplayTypes = array('jpg', 'jpeg', 'png', 'gif');
-
-# SET THIS TO THE DIRECTORY AND THE FILE NAME THAT YOU WANT TO BE THE STATIC REFERENCE THAT YOU USE TO SEE THE MOST RECENT PHOTO
-$newfn = '/your-folder-structure-here/camera1.jpg';
-
-# SET THE LOGFILE NAME HERE
-$logFile = '/your-folder-structure-here/log.txt';
-
-# DETERMINE HOW LONG TO WAIT BEFORE THE NEXT IMAGE IS SERVED
-$waitTime = 60;
-
-# TURN ON AND OFF DEBUG
-$debug = False;
+include_once('amcrest_config.php');
 
 /* code below here */
 
@@ -37,7 +19,7 @@ if ($debug) {
 
 $ignoreFolders = array('.', '..');
 
-$selectedDir = $rootDir;//$_GET['dir'];
+$selectedDir = $rootDir;
 // Strip slashes
 $selectedDir = explode('/', $selectedDir)[0];
 $selectedDir = explode('\\', $selectedDir)[0];
@@ -103,18 +85,28 @@ if (in_array($ext, $fileDisplayTypes)) {
         echo sprintf('the amount of time to proceed is %s <br>',$doWeProceed);
     }
     if ($doWeProceed > 0) {
-        if (copy($mostRecentFilePath, $newfn)) {
-            $time_ran = time();
-            $fh = fopen($logFile, 'w+');
-            fwrite($fh, $time_ran);
-            fclose($fh);
+        if (filemtime($mostRecentFilePath)<=$currentTime+4) {
             if ($debug) {
-                echo sprintf('%s <br> was renamed to <br>%s <br><br>', $mostRecentFilePath, $newfn);
-                echo sprintf('the time that was saved in the file is %s<br><br>', $time_ran);
+                echo "Enough time has passed to work with the most recent uploaded image.<br><br>";
             }
-        } else {
-            if($debug) {
-                echo sprintf('An error occurred during renaming the file.<br>The most recent file path is: %s <br>The new filename is %s <br><br>', $mostRecentFilePath, $newfn);
+            if (copy($mostRecentFilePath, $newfn)) {
+                $time_ran = time();
+                $fh = fopen($logFile, 'w+');
+                fwrite($fh, $time_ran);
+                fclose($fh);
+                if ($debug) {
+                    echo sprintf('%s <br> was renamed to <br>%s <br><br>', $mostRecentFilePath, $newfn);
+                    echo sprintf('the time that was saved in the file is %s<br><br>', $time_ran);
+                }
+            } else {
+                if ($debug) {
+                    echo sprintf('An error occurred during renaming the file.<br>The most recent file path is: %s <br>The new filename is %s <br><br>', $mostRecentFilePath, $newfn);
+                }
+            }
+        }
+        else {
+            if ($debug) {
+                echo "Not enough time has passed since the most recent uploaded image was sent from the camera.  Wait a few more seconds. <br><br>";
             }
         }
     } elseif ($doWeProceed <= 0) {
