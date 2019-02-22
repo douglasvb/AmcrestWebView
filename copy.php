@@ -1,7 +1,4 @@
-<html>
-<head>
-</head>
-<body>
+
 
 <?php
 
@@ -10,6 +7,11 @@
 include_once('amcrest_config.php');
 
 /* code below here */
+
+echo "<html>
+<head>
+</head>
+<body>";
 
 if ($debug) {
     ini_set('display_errors', 1);
@@ -136,7 +138,8 @@ if($debug) {
     echo "<img src='/camera1.jpg' alt='Nearly Live View.  Probably.'>";
 }
 
+echo "</body>
+</html>";
+
 ?>
 
-</body>
-</html>
