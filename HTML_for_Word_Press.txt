@@ -1,5 +1,6 @@
 #This is code that you can put on a WordPress or similar website to make use of copy.php to automatically serve updated AmCrest images.  Remember that you need to configure your AmCrest IP camera to automatically upload JPEG files to your FTP server. 
 
+#############THIS IS FOR COPY.PHP IF YOU ARE USING THAT VERSION###############
 <div class="imgbox">
 <a id="jump"></a>
 <a href="YOUR_WEB_SITE/IMAGE_FILE_NAME.jpg?34" target="_blank"><center><img class="center-fit" src="YOUR_WEB_SITE/IMAGE_FILE_NAME.jpg?123" alt="Nearly Live View - Click here to see full-size image."></center></a>
@@ -23,3 +24,10 @@
 		max-height: 80vh;
 		margin: auto;
 	}
+
+############THIS IS FOR FIND.PHP IF YOU ARE USING THAT VERSION #################
+
+<a id="jump"><a>
+<div style="position: relative; width: 100%; height: 0; padding-bottom: 70%;">
+<iframe src="YOUR_WEB_SITE/find.php" frameborder="0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
+<meta http-equiv="Refresh" content="60;url=YOUR_WEB_SITE/#jump">
