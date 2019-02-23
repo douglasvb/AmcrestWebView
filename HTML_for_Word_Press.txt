@@ -10,3 +10,16 @@
 <meta http-equiv="Refresh" content="60;url=YOUR_WEB_SITE/#jump">
 
 <iframe src="YOUR_WEB_SITE/copy.php" height="1" width="1"></iframe>
+
+
+#Be sure to include this CSS wherever you usually put your CSS.
+
+	.imgbox {
+		display: grid;
+		height: 80%;
+	}
+	.center-fit {
+		max-width: 80%;
+		max-height: 80vh;
+		margin: auto;
+	}
