@@ -23,7 +23,6 @@ echo "<html>
 </head>
 <body>";
 
-$debug = True;
 
 if ($debug) {
     ini_set('display_errors', 1);
@@ -53,6 +52,7 @@ $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($rootDi
 foreach ($iterator as $fileinfo) {
     if ($fileinfo->isFile()) {
         if ($fileinfo->getMTime() > $mostRecentFileMTime) {
+            $lastFilePath = $mostRecentFilePath;
             $mostRecentFileMTime = $fileinfo->getMTime();
             $mostRecentFilePath = $fileinfo->getPathname();
             $mostRecentFileName = $fileinfo->getFilename();
@@ -65,9 +65,8 @@ $ext = pathinfo($mostRecentFileName, PATHINFO_EXTENSION);
 function display_image($mostRecentFilePath)
 {
     $imageNameandPath = str_replace("/home/forkedmeadow/forkedmeadow/", "", $mostRecentFilePath);
-    echo "<br><br>
-        <div class=\'imgbox\'>";
-    echo sprintf('<a href="%s?234"target="_blank"><center><img class="center-fit" src="%s?123" alt="Nearly Live View.  Probably."></center></a></div>', $imageNameandPath, $imageNameandPath);
+    echo "<br><br><div class=\'imgbox\'>";
+    echo sprintf('<a href="%s"target="_blank"><center><img class="center-fit" src="%s" alt="Nearly Live View.  Probably."></center></a></div>', $imageNameandPath, $imageNameandPath);
 }
 
 if (in_array($ext, $fileDisplayTypes)) {
@@ -77,18 +76,17 @@ if (in_array($ext, $fileDisplayTypes)) {
     }
 
     $waitlongenough = time() - filemtime($mostRecentFilePath);
-    if ($waitlongenough > 6) {
+    if ($waitlongenough > $howLongToWait) {
         if ($debug) {
-            echo "The image is at least 6 seconds old.<br><br>";
+            echo sprintf('The image is at least % seconds old.<br><br>', $howLongToWait);
         }
         display_image($mostRecentFilePath);
 
     } else {
         if ($debug) {
-            echo "The image will be served in 6 seconds once the latest image uploads.<br><br>";
+            echo "The most recent image still hasn't finished uploading so here is the last image.<br><br>";
         }
-        sleep(5);
-        display_image($mostRecentFilePath);
+        display_image($lastFilePath);
     }
 
 } elseif ($ext == 'php') {
