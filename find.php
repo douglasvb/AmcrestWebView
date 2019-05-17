@@ -79,7 +79,7 @@ if (in_array($ext, $fileDisplayTypes)) {
     $waitlongenough = time() - filemtime($mostRecentFilePath);
     if ($waitlongenough > $howLongToWait) {
         if ($debug) {
-            echo sprintf('The image is at least % seconds old.<br><br>', $howLongToWait);
+            echo sprintf('The image is at least %s seconds old.<br><br>', $howLongToWait);
         }
         display_image($mostRecentFilePath);
 
