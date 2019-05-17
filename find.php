@@ -102,6 +102,8 @@ if (in_array($ext, $fileDisplayTypes)) {
         echo "<br><br>";
         if (strpos($mostRecentFilePath, 'DVRWorkDirectory') !== false) {
             echo "The most recent file name is DVRWorkDirectory -- This confirms that the camera can see the internet but is having trouble uploading an image. <br><br>";
+        } else {
+            echo "Something else is going on.  There is a new file in the directory structure that is not recognized.";
         }
         //echo sprintf('The most recent file name is %s <br><br>', $mostRecentFilePath);
 
