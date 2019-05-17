@@ -62,6 +62,7 @@ foreach ($iterator as $fileinfo) {
 
 $ext = pathinfo($mostRecentFileName, PATHINFO_EXTENSION);
 
+
 function display_image($mostRecentFilePath)
 {
     $imageNameandPath = str_replace("/home/forkedmeadow/forkedmeadow/", "", $mostRecentFilePath);
@@ -93,11 +94,22 @@ if (in_array($ext, $fileDisplayTypes)) {
     if ($debug) {
         echo "<br><br>Wait a bit for the latest image to be uploaded.  The PHP file is still the newest.<br><br>";
     }
-} else {
+} elseif ($ext == '' && $ext != 'php') {
     if ($debug) {
+        echo "<br><br>The camera appears to have a live connection to the internet but has not uploaded an image since its last time checking in with the server.  This is likely caused by a slow internet connection or latency.  Both of these issues are likely because of a problem with the ISP.<br><br>";
+        echo "The last time the camera contacted the server was ";
+        echo date('m/d/Y H:i:s', $mostRecentFileMTime);
+        echo "<br><br>";
+        if (strpos($mostRecentFilePath, 'DVRWorkDirectory') !== false) {
+            echo "The most recent file name is DVRWorkDirectory -- This confirms that the camera can see the internet but is having trouble uploading an image. <br><br>";
+        }
+        //echo sprintf('The most recent file name is %s <br><br>', $mostRecentFilePath);
+
+
+    }
+} else {
         echo "<br><br>An error occured while determining the file type <br><br>";
         echo sprintf('We had an error... the file extension is %s <br><br>', $ext);
-    }
 }
 
 echo "</body>
